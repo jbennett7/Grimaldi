@@ -1,0 +1,935 @@
+---
+title: Exercises 1.1 and 1.2
+output:
+  pdf_document:
+    includes:
+      in_headers: preamble.tex
+---
+
+```{r setup, include=F}
+knitr::opts_chunk$set(echo=F)
+pretty = function(x, n=0) format(round(x, n), big.mark=',')
+permutations <- function(n, r=NA){
+  factorial(n) / ifelse(is.na(r), 1, factorial(n - r))
+}
+```
+
+# 1. The rule of sum and product
+
+During a local campaign, eight Republican and five Democrat candidates are
+nominated for president of the school board.
+
+a. If the president is to be one of these candidates, how many possiblities are
+   there for the eventural winner?
+
+b. How many possibleities exist for a pair of candidates (one from each party)
+   to oppose each other for the eventual election?
+
+c. Which counting principle is used in part (a)? in part (b)?
+
+The president is to be one of eight Republicans or five Democrats then any one
+of the 13 candidates could be president.
+
+There are \(5 \times 8 = 40\) different possible races between a Republican and
+Democrat candidate.
+
+The first question (a) uses the rule of sums. The second question (b) uses the
+rule of products.
+
+# 2.
+
+If manufacturing of license plates consists of two letters and four digits,
+where repetition is allowed. How many plates are there that have only vowels (A,
+E, I, O, U) and even digits? (0 is an even integer).
+
+There are \(5 \times 5 \times 5 \times 5 \times 5 \times 5 = 15,625\) different
+license plates that only have vowels and even digits.
+
+# 3.
+
+Buick automobiles come in four models, 12 colors, three engine sizes, and tow
+transmission types. (a) How many distinct Buicks can be manufactured? (b) If one
+of the available colors is blue, how many different blue Buicks can be
+manufactured?
+
+a. There are \(4 \times 12 \times 3 \times 2 = 288\) different Buicks.
+
+b. There are \( 4 \times (1) \times 3 \times 2 = 24\) different blue Buicks.
+
+# 4.
+
+The board of directors of a pharmaceutical corporation has 10 members. An
+upcoming stockholders' meeting is scheduled to approve a new slate of company
+officers (chosen from 10 board members). (a) How many different slates
+consisting of a president, vice president, secretary, and treasurer can the
+board present to the stockholders for their approval? (b) Three members of the
+board of directors [from part (a)] are physicians. How many slates from part (a)
+have (i) a physician nominated for the presidency? (ii) exactly one physician
+appearing on the slate? (iii) at least one physician appearing on the slate?
+
+## a. Number of slates of company officers
+
+There are 10 members to the board and 4 officer positions. That means there are
+\(\frac{10!}{(10-4)!} = `r pretty(permutations(10, 4))`\) slates of
+candidates which the stockholders could elect.
+
+## b. Three physicians on the board
+
+### i. Number of slates with a physician as president
+
+If three members of the board are physicians then each of them could be
+president. The rest of the slots could be held by any of the other board
+members.
+
+\[
+3 \times \frac{9!}{(9 - 3)!} = `r pretty(3 * permutations(9, 3))`
+\]
+
+### ii. Number of slates with exactly one physician
+
+If one of the slots had to be filled by one of the three physicians, the rule of
+products states that there are \(3 \times 4 = 12\) different ways to fill those
+offices with a physician. The other three slots are filled with the 7 board
+members who are not physicians.
+
+\[
+3 \times 4 \times \frac{7!}{(7 - 3)!}
+  = `r pretty(3 * 4 * permutations(7, 3))`
+\]
+
+### iii. Number of slates with at least one physician
+
+If at least one of the officers in the slate need to be filled with a physician
+then we can subtract the number of slates without an officer from the total
+number of slates with all 10 board members.
+
+\[
+\frac{10!}{(10-4)!} - \frac{7!}{(7 0 4)!}
+  = `r pretty(permutations(10, 4) - permutations(7, 4))`
+\]
+
+# 5.
+
+While on a Saturday shopping spree Jennifer and Tiffany witnessed two men
+driving away from the front of a jewelry shop, just before a burglar alarm
+started to sound. Although everything happened rather quickly, when the two
+young ladies were questioned they were able to give the police the following
+information about the license plate (which consisted of two letters followed by
+four digits) on the getaway car. Tiffany was sure that the second letter on the
+plate was either an O or Q and the last digit was either a 3 or an 8. Jennifer
+told the investigator that the first letter on the plate was either a C or a G
+and that the first digit was definitely a 7. How many different license plates
+will the police have to check?
+
+Given:
+
+* License plate has 2 letters and four digits.
+* Tiffany says second letter was an O or Q, last digit was either 3 or 8
+* Jennifer says first letter was a C or G, first digit was a 7.
+
+Immediately we see that only two digits remain wild (0 - 9). The number of
+plates to check is \(2 \times 2 \times 2 \times 1 \times 10 \times 10 = 800\).
+
+# 6.
+
+To raise money for a new municipal pool, the chamber of commerce in a certain
+city sponsors a race. Each participant pays a \$5 entrance fee and has a chance
+to win one of the different-size trophies that are to be awareded to the first
+eight runners who finish.
+
+a. If 30 people enter the race, in how many ways will it be possible to award
+trophies?
+
+b. If Roberta and Candice are two participants in the race, in how many ways can
+the trophies be awarded with these two runners among the top three?
+
+There are eight trophies and 30 candidates. That means there are:
+
+## a.
+
+\[
+\frac{30!}{(30-8)!} = `r pretty(permutations(30, 8))`
+\]
+
+## b.
+
+There are (\(2 \times 3 = 6\)) ways to place Roberta and Candice among the top three. Then we need
+to choose one additional from the 28 as a top-3 finisher. Then we order the
+remaining for the trophy winners.
+
+\[
+6 \times 28 \times \frac{27!}{(27 - 5)!}
+  = `r pretty(6 * 28 * permutations(27, 5))`
+\]
+
+# 7.
+
+A certain "Burger Joint" advertises that a customer can have his or her
+hamburger with or without any or all of the following: catsup, mustard,
+mayonnaise, lettuce, tomato, onion, pickle, cheese, or mushrooms. How many
+different kinds of hamburger orders are possible?
+
+There are 9 independent condiments. The choice is to include it or don't include
+it. The number of total choices is \(2^9 = 512\).
+
+# 8.
+
+Matthew works as a computer operator at a small university. One evening he finds
+that 12 computer programs have been submitted earlier that day for batch
+processing. In how many ways can Matthew order the processing of these programs
+if (a) there are no restrictions? (b) he considered four of the programs higher
+in priority than the other eight and wants to process those four first? (c) he
+first separates the programs into four of top priority, five of lesser priority,
+and three of least priority, and he wishes to process the 12 programs in such a
+way that the top-priority programs are processed first and the three programs of
+least priority are processed last?
+
+## a. no restrictions
+
+\[
+12! = `r pretty(factorial(12))`
+\]
+
+## b. four programs are high priority
+
+\[
+4! \times 8! = `r pretty(factorial(4) * factorial(8))`
+\]
+
+## c. three tiers (4, 5, 3)
+
+\[
+4! \times 5! \times 3! = `r pretty(factorial(4) * factorial(5) * factorial(3))`
+\]
+
+# 9.
+
+Patter's Pastry Parlor offers eight different kinds of pastry and six different
+kinds of muffins. In addition to bakery items one can purchase small, medium, or
+large containers of the following beverages: coffee (black, with cream, with
+sugar, with cream and sugar), tea (plain, with cream, with sugar, with cream and
+sugar, with lemon, or with lemon and sugar), hot cocoa, and orange juice. When
+Carol comes to Patter's, in how many ways can she order:
+
+a. one bakery item and one medium-sized beverage for herself?
+
+b. one bakery item and one conainer of coffee for herself and one muffin and one
+container of tea for her boss. Ms. Didio?
+
+c. one piece of pastry and one container of tea for herself, one muffin and a
+container of orange juice for Ms. Didio, and one bakery item and one container
+of coffee for each of her two assistants, Mr. Talbot and Mrs. Gillis?
+
+Items:
+
+* 8 pastry and six muffins: 14 bakery items
+* 3 sizes of: coffee (x4), tea (x6), hot cocoa, and orange juice.
+
+## a. one bakery item and one medium-sized beverage
+
+There are 14 different bakery items and 12 different types of medium-sized
+beverages.
+
+\[
+14 \times 12 = 168
+\]
+
+## b. one bakery item and one coffee for herself, one muffin and one tea.
+
+There are 14 different bakery items and (\(3 \times 3 = 12\)) different coffees.
+There are 6 muffins and (\(3 \times 6 = 18\)) different teas.
+
+\[
+(14 \times 12) \times (6 \times 18) = `r pretty(14 * 12 * 6 * 18)`
+\]
+
+## c. one pastry and one container of tea (\(3 \times 6 = 18\)) ...
+
+* one pastry (8) and one container of tea (\(3 \times 6 = 18\))
+* one muffin (6) and one container of orange juice (3)
+* one bakery (14) and one container of coffee (\(3 \times 4 = 12\))
+
+\[
+(8 \times 18) \times (6 \times 3) \times (14 \times 12)^2 =
+  `r pretty(8 * 18 * 6 * 3 * (14 * 12)^2)`
+\]
+
+# 10.
+
+Pamela has 15 different books. In how many ways can she place her books on two
+shelves so that there is at least one book on each shelf? (Consider the books in
+each arrangement to be stacked one next to the other, with the first book on
+each shelf at the left of the shelf.)
+
+## Key points:
+
+* There are 15 distinct books.
+
+* There are 2 distinct shelves.
+
+* Each shelf must get at least one book.
+
+* On each shelf, the books are arranged where order matters.
+
+## Step-by-step approach
+
+For each book, you have to decide two things:
+
+1. Which shelf it goes to.
+
+2. In what position it appears on that shelf.
+
+Here is a way to approach it:
+
+__First assign every book to a shelf (allowing empty shelves), then arrange the
+books on each shelf, and finally subtract the bad cases.__
+
+There are \(2^15\) different ways to assign the books to each shelf. Once the
+books are assigned, suppose \(k\) books go to one shelf, then \(15-k\) books go
+to the other shelf.
+
+* \(k\) books on the first shelf can be arranged in \(k!\) ways.
+
+* The \(15 - k\) books on the second shelf can be arranged in \((15 - k)!\)
+  ways.
+
+So the total number of arrangements (including cases where one shelf is empty)
+is:
+
+\[
+\sum_{k=0}^{15} \binom{15}{k} \cdot k! \cdot (15 - k)!
+  = \sum_{k=0}^{15} \frac{15!}{k! (15 - k)!} \cdot k! \cdot (15 - k)!
+  = \sum_{k=0}^{15} 15! = 16 \times 15!
+\]
+
+This includes both of the cases where the one of the shelf is empty. Therefore,
+the number of ways where both shelves have at least one book is:
+
+\[
+\begin{aligned}
+\text{Total (allowing empty)} - \text{all on A} - \text{all on B}\\
+  = 16 \times 15! - 15! - 15!\\
+  = 16 \times 15! - 2 \times 15!\\
+  = 14 \times 15!
+\end{aligned}
+\]
+
+## Alternative method
+
+Imaging the 15 distinct books in a row. Insert one "divider" somehwhere between
+them (but not at the very beginning or very end) to separate the books that go
+on the two shelves. The books on the left side go on shelf one, and the books on
+the right side go on shelf two. There are 14 possible places to put the divider.
+There are \(15!\) permutations of the books. Thus each permutation can be paird
+with any of the 14 divider positions:
+
+\[
+14 \times 15!
+\]
+
+# 11.
+
+Three small towns, designated by A, B, and C, are interconnected by a system of
+two-way roads.
+
+a. In how many ways can Linda travel from town A to town C?
+
+b. How many different round trips can Linda travel from town A to town C and
+then back to town A?
+
+c. How many of the round trips in part (b) are such that the return trip (from
+town C to town A) is at least partially different from the route Linda takes
+from town A to town C? (For example, if Linda travels from town A to town C
+along roads \(R_1\) and \(R_6\), then on her return she might take roads \(R_6\)
+and \(R_3\), or roads \(R_7\) and \(R_2\), or road \(R_9\), among other
+possibilities, but she does _not_ travel on roads \(R_6\) _and_ \(R_1\).)
+
+## a.
+
+\[
+2 + 4 \times 3 = 14
+\]
+
+## b.
+
+\[
+14 \times 14 = 196
+\]
+
+## c.
+
+\[
+14 \times 14 - 14 = 182
+\]
+
+# 12.
+
+List all the permutations for the letters a, c, t.
+
+\[
+3! = 6
+\]
+
+# 13.
+
+a. How many permutations are there for the eight letters a, c, f, g, i , t, w,
+   x?
+
+b. Consider the permutations in part (a). How many start with the letter t? How
+   many start with the letter t and end with the letter c?
+
+## a.
+
+\[
+8! = `r pretty(factorial(8))`
+\]
+
+## b.
+
+Start with 't': \(7! = `r pretty(factorial(7))`\)
+
+Start with 't' and end with 'c': \(6! = `r pretty(factorial(6))`\)
+
+# 14.
+
+Evaluate each of the following.
+
+a. \(P(7, 2) = `r pretty(permutations(7, 2))`\)
+
+b. \(P(8, 4) = `r pretty(permutations(8, 4))`\)
+
+c. \(P(10, 7) = `r pretty(permutations(10, 7))`\)
+
+d. \(P(12, 3) = `r pretty(permutations(12, 3))`\)
+
+# 15.
+
+In how many ways can the symbols a, b, c, d, e, e, e, e, e be arrranged so that
+no e is adjacent to another e?
+
+To do this we reorder the other letters between each of the e letters. There are
+\(4! = `r factorial(4)`\) ways to do this.
+
+# 16.
+
+An alphabet of 40 symbols is used for transmitting messages in a communication
+system. How many distinct messages (lists of symbols) of 25 symbols can the
+transmitter generate if symbols can be repeated in the message? How many if 10
+of the 40 symbols can appear only as the first and/or last symbols of the
+message, the other 30 symbols can appear anywhere, and repetitions of all
+symbols are allowed?
+
+The number of distinct messages of 25 symbols with repetitions is \(40^{25}\).
+The number of distinct messages of 25 symbols under the given restrictions with
+repetitions allowed is \(40^2 \times 30^{23}\).
+
+# 17.
+
+In a certain implementation of the programming language Pascal, an identifier
+consists of a single letter or a letter followed by up to seven symbols, which
+may be letters or digits. (We assume that the computer does not distinguish
+between capital and lowercase letters; there are 26 letters and 10 digits).
+Certain keywords, however, are reserved for commands; consequently, these
+keywords may not be used as identifiers. If this implementation has 36 reserved
+words, how many distinct identifiers are possible in this version of Pascal?
+
+There can be 26 different one letter identifiers (all identifiers begin with a
+letter).
+
+\[
+\begin{aligned}
+26 + 26 \times 36^1 + 26 \times 36^2 + \cdots + 26 \times 36^7\\
+   &= \sum^7_{i=0}{26(36)^i} - 36\\
+   &= `r pretty(26*sum(36^(0:7))-36)`
+\end{aligned}
+\]
+
+# 18.
+
+Morgan is considering the purchase of a low-end computer system. After some
+careful investigating, she finds that there are seven basic systems (each
+consisting of a monitor, CPU, keyboard, and mouse) that meet her requirements.
+Furthermore, she also plans to buy one of four modems, one of three CD ROM
+drives, and one of six printers. (Here each peripheral device of a given type,
+such as the modem, is compatible with all seven basic systems.) In how many ways
+can Morgan configure her low-end computer system?
+
+Choices 
+
+* Seven systems
+
+* Four modems
+
+* Three CD ROMS
+
+* Six printers
+
+\[
+7 \times 4 \times 3 \times 6 = `r pretty(7*4*3*6)`
+\]
+
+# 19.
+
+A computer science professor has seven different programming books on a
+bookshelf. Three of the books deal with C++, the other four with Java. In how
+many ways can the professor arrange these books on the shelf (a) if there are no
+restrictions? (b) if the languages should alternate? (c) if all the C++ books
+must be next to each other? (d) if all C++ books must be next to each other and
+all the Java books must be next to each other?
+
+## a.
+
+\[
+7! = `r pretty(factorial(7))`
+\]
+
+## b.
+
+\[
+3! \times 4! = `r pretty(factorial(3) * factorial(4))`
+\]
+
+## c.
+
+\[
+\]
+
+## d.
+
+\[
+3! + 4! = `r pretty(factorial(3) + factorial(4))`
+\]
+
+# 20.
+
+a. In how many ways can the letters in VISITING be arranged?
+
+b. For the arrangements of part (a), how many have all three I's together?
+
+## a.
+
+\[
+\frac{8!}{3!} = `r pretty(factorial(8) / factorial(3))`
+\]
+
+## b.
+
+\[
+6! = `r pretty(factorial(6))`
+\]
+
+# 21.
+
+a. How many arrangements are there of all the letters in SOCIOLOGICAL?
+
+b. In how many of the arrangements in part (a) are A and G adjacent?
+
+c. In how many of the arrangements in part (a) are all the vowels adjacent?
+
+## a.
+
+There is 1 S, 3 O, 2 C, 2 I, 1 L, 1 G, 1 L
+
+\[
+\frac{12!}{1! \cdot 3! \cdot 2! \cdot 2! \cdot 1! \cdot 1! \cdot 1!} =
+  `r pretty(factorial(12) / (factorial(3) * 2 * factorial(2)))`
+\]
+
+## b.
+
+\[
+2 \times \frac{11!}{3! \cdot 2! \cdot 2!} =
+  `r pretty(2 * factorial(11) / (factorial(3) * 2 * factorial(2)))`
+\]
+
+## c.
+
+\[
+\frac{7!}{2! \cdot 2!} = `r pretty(factorial(7) / (2 * factorial(2)))`
+\]
+
+# 22.
+
+How many positive integers \(n\) can we form using the digits 3, 4, 4, 5, 5, 6,
+7 if we want \(n\) to exceed 5,000,000?
+
+The first digit: \(\frac{3!}{2!} = 3\) ways.
+
+After placing the first digit, the remaining six digits are chosen from the six
+leftover digits, which still include one 4 and one 5 left in most cases (or
+none, if you already used the 6 or 7).
+
+| First digit | Remaining | Permutations |
+|:---:|:---:|:---:|:---:|
+| 5 | \(\{3,4,4,5,6,7\}\) | \(\frac{6!}{2!} = 360\) |
+| 6 | \(\{3,4,4,5,5,7\}\) | \(\frac{6!}{2! \cdot 2!} = 180\) |
+| 7 | \(\{3,4,4,5,5,6\}\) | \(\frac{6!}{2! \cdot 2!} = 180\) |
+
+Therefore the total number is \(360 + 2 \times 180 = `r pretty(360 + 2
+* 180)`\)
+
+# 23.
+
+Twelve clay targets (identical shape) are arranged in four hanging columns, as
+shown in Fig. 1.5. There are four red targets in the first column, three white
+ones int he second column, two green targets in the third column, and three blue
+ones in the fourth column. To join her college drill team, Deborah must break
+all 12 of these targets (using her pistol and only 12 bullets) and in so doing
+must always break the existing target at the bottom of a column. Under these
+conditions how many different orders can Deborah shoot down (and break) the 12
+targets?.
+
+\[
+\frac{12!}{4! \cdot 3! \cdot 2! \cdot 3!}
+  = `r pretty(factorial(12) /
+              (factorial(4) * 2 * factorial(3) * factorial(2)))`
+\]
+
+# 24.
+
+Show that for all integers \(n\), \(r \ge 0\), if \(n + 1 > r\), then
+
+\[
+P(n + 1, r) = \left(\frac{n + 1}{n + 1 - r}\right) P(n, r).
+\]
+
+The definition of permutations
+
+\[
+P(k, r) = k \times (k - 1) \times (k - 2) \times \cdots \times (k - r + 1) =
+\frac{k!}{(k-r)!}\ (\text{for}\ k \le r).
+\]
+
+__Left-hand side:__
+
+\[
+P(n + 1, r) = (n + 1) \times n \times (n - 1) \times \cdots
+  \times (n + 1 - r + 1) = (n + 1) \times n \times (n - 1) \times \cdots
+  \times (n - r + 2).
+\]
+
+__Right-hand side:__
+
+\[
+P(n, r) = n \times (n - 1) \times \cdots \times (n - r + 1).
+\]
+
+So
+
+\[
+\frac{n + 1}{n + 1 - r} P(n, r) = \frac{n + 1}{n + 1 - r} \times 
+  [n \times (n - 1) \times \cdots \times (n - r + 1)].
+\]
+
+Notice that the product \(n \times (n - 1) \times \cdots \times (n - r + 1)\)
+has exactly \(r\) factors, and the smallest (last) factor is \(n - r + 1\).
+
+The denominator on the right-hand side is
+
+\[
+n + 1 - r = (n - r + 1) + 1.
+\]
+
+Thus,
+
+\[
+\frac{n + 1}{n + 1 - r} P(n, r) = (n + 1) \times [n \times (n - 1) \times \cdots
+  \times (n - r + 1)] = (n + 1) \times n \times (n - 1) \times \cdots \times
+  (n - r + 2),
+\]
+
+which is exactly the product for \(P(n + 1, r)\).
+
+Therefore,
+
+\[
+P(n + 1, r) = \frac{n + 1}{n + 1 - r} P(n, r).
+\]
+
+(The condition \(n + 1 > r\) guarantees \((n + 1 - r > 0)\), so we are never
+dividing by zero or a negative integer when interpreting the permutations
+formulas.)
+
+# 25.
+
+Find the value(s) of \(n\) in each of the following:
+
+```{r problem 25}
+p25 = new.env()
+p25$a = round(uniroot(function(n) n^2 - n - 90, c(1, 100))$root)
+```
+
+## a. \(P(n, 2) = 90\)
+
+\[
+\begin{aligned}
+P(n, 2) &= n \times (n - 1) = 90\\
+   &= n^2 - n - 90 = 0\\
+\end{aligned}
+\]
+
+Using the quadratic formula:
+
+\[
+n = \frac{1 \pm \sqrt{1 + 360}}{2} = \frac{1 \pm \sqrt{361}}{2}
+  = \frac{1 \pm 19}{2}
+\]
+
+The two solutions are 10 and -9. \(n\) must be positive so it is 10.
+
+## b. \(P(n, 3) = 3P(n, 2)\)
+
+\[
+\begin{aligned}
+P(n, 3) &= n \cdot (n - 1) \cdot (n - 2)\\
+P(n, 2) &= n \cdot (n - 1)\\\\
+P(n, 3) &= 3 \cdot P(n, 2)\\
+n \cdot (n - 1) \cdot (n - 2) &= 3 \cdot n \cdot (n - 1)\\
+n - 2 &= 3\\
+n &= 5
+\end{aligned}
+\]
+
+## c. \(2 \cdot P(n, 2) + 50 = P(2n, 2)\)
+
+\[
+\begin{aligned}
+2 \cdot P(n, 2) + 50 &= P(2n, 2)\\
+2 \cdot (n \cdot (n - 1)) + 50 &= 2n \cdot (2n - 1)\\
+2n^2 - 2n + 50 &= 4n^2 - 2n\\
+2(n^2 - n + 25) &= 2(2n^2 - n)\\
+n^2 - n + 25 &= 2n^2 - n\\
+25 &= n^2\\
+n &= \pm 5\\
+n &= 5
+\end{aligned}
+\]
+
+# 26.
+
+How many different paths in the _xy_-plane are there from (0,0) to (7,7) if a
+path proceeds one step at a time by going either one space to the right (R) or
+one spaceupward (U)? How many such paths are there from (2, 7) to (9, 14)? Can
+any general statement be made that incorporates these two results?
+
+```{r problem 26}
+p26 = new.env()
+p26$ans = factorial(14) / factorial(7)^2
+```
+
+## a. (0,0) to (7,7)
+
+There are 7 Rs and 7 Us. Therefore, we can calculate this by
+\(\frac{14!}{7! 7!} = `r pretty(p26$ans)`\).
+
+## b. (2, 7) to (9, 14)
+
+If we take the distances to the right and up we find that we have the same
+number of Rs and Us. Therefore the answer is the same.
+
+## c.
+
+Generally we can find the paths by counting the number of R moves and number of
+U moves to get from the first point to the second.
+
+# 27.
+
+a. How many distinct paths are there from (-1, 2, 0) to (1, 3, 7) in Euclidean
+three-space if each move is one of the following types?
+
+(H): (x, y, z) \(\rightarrow\) (x + 1, y, z);
+(V): (x,y,z) \(\rightarrow\) (x, y + 1, z);
+(A): (x, y, z) \(rightarrow\) (x, y, z+1)
+
+b. How many such paths are there from (1, 0, 5) to (8, 1, 7)?
+
+c. Generalize the results in parts (a) and (b).
+
+# 28.
+
+a. Determine the value of the integer variable _counter_ after execution of the
+following program segment. (Here _i_, _j_, and _k_ are integer variables.)
+
+```{echo=T}
+counter := 0
+for i := 1 to 12 do
+  counter := counter + 1
+for j := 5 to 10 do
+  counter := counter + 2
+for k := 15 downto 8 do
+  counter := counter + 3
+```
+
+b. Which counting principle is being used?
+
+
+## a. Execute each line of code
+
+1. The first line sets counter = 0.
+
+2. Next we enter the first loop which runs 12 times and increments counter on
+   each iteration: `counter = 0 + 1 x 12 = 12`.
+
+3. The second loop counts from 5 to 10 (6 iterations) and increments counter 2
+   each iteration: `counter = 12 + 2 x 6 = 24`.
+
+4. Finally, the third loop counts down from 15 to 8 (8 iterations) and
+   increments counter 3 each iteration: `counter = 24 + 3 x 8 = 48`.
+
+The final value of `counter` is 48.
+
+## b. The counting principle at work
+
+The Addition principle or the rule of sum. The total is the sum of the
+contributions from the three disjoint (independent, non-overlapping) processes:
+
+# 29.
+
+Consider the following program segment where i, j, and k are integer variables.
+
+```{echo=T}
+for i := 1 to 12 do
+  for j := 5 to 10 do
+    for k := 15 downto 8 do
+      print(i - j)*k
+```
+
+a. How many times is the __print__ statement executed?
+
+b. Which counting principle is used?
+
+## a. Counting the print statements.
+
+Start with the second inner loop and work your way out.
+
+1. The innermost (k) loop is executed 8 times.
+2. The middle (j) loop is executed 6 times.
+3. The outer (i) loop is executed 12 times.
+
+The total print statements is \(8 \times 6 \times 12 = `r 8*6*12`\)
+
+## b. The counting principle at work.
+
+The __multiplication principle__ (also called the rule of product). When a
+procedure consists of performing \(k\) sequential (or nested) independent
+choices, where the first choice can be made in \(n_1\) ways, the second in
+\(n_2\) ways, etc..., the total number of possible outcomes is \(n_1 \times n_2
+\times \ldots \times n_k\).
+
+In this specific problem we have three independent stages so we multiply the
+number of possibilities at each stage.
+
+# 30.
+
+A sequence of letters of the form `abcba`, where the expression is unchanged
+upon reversing order, is an example of a _palindrome_ (of five letters). (a) If
+a letter may appear more than twice, how many palindromes of five letters are
+there? of six letters? (b) Repeat part (a) under the condition that no letter
+appears more than twice.
+
+
+## a. 5-letter palindrome where repetitions are allowed.
+
+* Positions 1 and 5 must be the same letter.
+* Positions 2 and 4 must be the same letter.
+* Position 3 can be any letter.
+
+\[
+26 \times 26 \times 26 = 26^3 = `r pretty(26^3)`
+\]
+
+## b. 5-letter palindrome where repetitions are not allowed.
+
+* Position 1 and 5 must be the same letter.
+* Position 2 and 4 must be the same letter and different from the previous
+  letter.
+* Position 3 must be different from the previous two letters.
+
+\[
+26 \times 25 \times 24 = \frac{26!}{(26 - 3)!}
+  = `r pretty(factorial(26)/factorial(26 - 3))`
+\]
+
+# 31.
+
+Determine the number of six-digit integers (no leading zeros) in which (a) no
+digit may be repeated; (b) digits may be repeated. Answer parts (a) and (b) with
+the extra condition that the six-digit integer is (i) even; (ii) divisible by 5;
+(iii) divisible by 4.
+
+```{r problem 31}
+p31 = new.env()
+p31$a = 9 * factorial(9) / factorial(9-5)
+p31$b = 9 * 10^5
+p31$last.0 = factorial(9) / factorial(9-4)
+p31$last.2_8 = 9 * factorial(8) / factorial(8-4) * 4
+```
+
+## a. 6 digits, no digit repeats and no leading zeros
+
+\[
+9 \times 9 \times 8 \times 7 \times 6 \times 5 = 9 \times \frac{9!}{(9-5)!}
+  = `r pretty(p31$a)`
+\]
+
+## b. Digits may be repeated, but no leading zeros
+
+\[
+9 \times 10^5 = `r pretty(p31$b)`
+\]
+
+### i. For both repeating and non-repeating (no leading zeros) even numbers
+
+The choices for the last digit are (0, 2, 4, 6, 8).
+
+#### a. 6 digits, no digit repeats and no leading zeros
+
+##### Case 1: last digit = 0
+
+\[
+\]
+
+##### b.
+
+\[
+9 \times 10^4 \times 5 = `r pretty(9 * 10^4 * 5)`
+\]
+
+### ii. Divisible by 5
+
+For numbers divisible by five the number must end in either 0 or 5 (two
+options).
+
+#### Case 1: Last digit = 0
+
+\[
+9*8*7*6*5 = `r pretty(9*8*7*6*5)`
+\]
+
+#### Case 2: Last digit = 5
+
+\[
+8 \times 8 \times 7 \times 6 \times 5 = `r pretty(8*8*7*6*5)`
+\]
+
+#### Combine cases
+
+\[
+`r pretty(9*8*7*6*5 + 8*8*7*6*5)`
+\]
+
+\[
+9 \times 10^4 \times 2 = `r pretty(9 * 10^4 * 2)`
+\]
+
+### iii. Divisible by 4
+
+
+\[
+9 \times \frac{9!}{(9-4)!} \times 2
+  = `r pretty(9*factorial(9)/factorial(9-4)*2)`
+\]
+
+\[
+9 \times 10^4 \times 2 = `r pretty(9 * 10^4 * 2)`
+\]

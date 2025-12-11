@@ -1,0 +1,122 @@
+---
+title: Fundamental Principles of Counting
+output:
+  pdf_document:
+    toc: true
+    includes:
+      in_headers:
+        preamble.tex
+---
+
+# 1.1 The Rules of Sum and Product
+
+\begin{tcolorbox}
+\textbf{The Rule of Sum:} If a first task can be performed in \(m\) ways, while
+a second task can be performed in \(n\) ways, and the two tasks cannot be
+performed simultaneously, then performing either task can be accomplished in any
+one of \(m + n\) ways.
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=\textbf{Example 1.1},
+  colback=blue!5!white, colframe=blue!75!white]
+A college library has 40 textbooks on sociology and 50 textbooks dealing with
+anthropology. By the rule of sum, a student at this college can select among 40
++ 50 = 90 textbooks in order to learn more about one or the other of these two
+subjects.
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=\textbf{Example 1.2},
+  colback=blue!5!white, colframe=blue!75!white]
+The rule can be extended beyond two tasks as long as no pair of the tasks can
+occur simulatneously. For instnace, a computer science instructor who has, say,
+five introductory books each on C++, FORTRAN, Java, and Pascal can recommend any
+one of these 20 books to a student who is interested in learning a first
+programming language.
+\end{tcolorbox}\label{ex:1.2}
+
+\begin{tcolorbox}[title=\textbf{Example 1.3},
+  colback=blue!5!white, colframe=blue!75!white]
+The computer science instructor of Example 1.2 has two colleagues. One of these
+colleagues has three textbooks on the analysis of algorithms, and the other has
+five such textbooks. If \(n\) denotes the maximum number of different books on
+this topic that this instructor can borrow from them, then \(5 \le n \le 8\),
+for here both colleagues \textit{may} own copies of the same textbook(s).
+\end{tcolorbox}
+
+\begin{tcolorbox}
+\textbf{The Rule of Product:} If a procedure can be broken down into first and
+second stages, and if there are \(m\) possible outcomes for the first stage and
+if, for each of these outcomes, there are \(n\) possible outcomes for the second
+stage, then the total procedure can be carried out, in the designated order, in
+\(mn\) ways.
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=\textbf{Example 1.4},
+  colback=blue!5!white, colframe=blue!75!white]
+In trying to reach a decision on plant expansion, an administrator assigns 12 of
+her employees to two committees. Committee A consists of five members and is to
+investigate possible favorable results from such an expansion. The other seven
+employees, committee B, will scrutinize possible unfavorable repercussions.
+Should the administrator decide to speak to just one committee member before
+making her decision, then by the rule of sum there are 12 employees she can call
+upon for input. However, to be a bit more unbiased, she decides to speak with a
+member of committee A on Monday, and then with a member of committee B on
+Tuesday, before reaching a decision. Using the following principle, we find that
+she can select two such employees to speak with in \(5 \times 7 = 35\) ways.
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=\textbf{Example 1.5},
+  colback=blue!5!white, colframe=blue!75!white]
+The drama club of Central University is holding tryouts for a spring play. With
+six men and eight women auditioning for the leading male and female roles, by
+the rule of product the director can cast his leading couple in \(6 \times 8 =
+48\) ways.
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=\textbf{Example 1.6},
+  colback=blue!5!white, colframe=blue!75!white]
+Here various extensions of the rule are illustrated by considering the
+manufacture of license plates consisting of two letters followed by four digits.
+\begin{enumerate}[label=\alph*.]
+\item If no letter or digit can be repeated, there are \(26 \times 25 \times 10
+      \times 9 \times 8 \times 7 = 3,276,000\) different possible plates.
+\item With repetitions of letters and digits allowed, \(26 \times 26 \times 10
+      \times 10 \times 10 \times 10 = 6,760,000\) different license plates are
+      possible.
+\item If repetitions are allowed, as in part (b), how many of the plates have
+      only vowels (A, E, I, O, U) and even digits? (0 is an even integer.)
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=\textbf{Example 1.7},
+  colback=blue!5!white, colframe=blue!75!white]
+In order to store data, a computer's main memory contains a large collection of
+circuits, each of which is capable of storing a \textit{bit}---that is, one of
+the \textit{bi}nary digit\textit{s} 0 or 1. These storage circuits are arranged
+in units called (memory) cells. To identify the cells in a computer's main
+memory, each is assigned a unique name called its \textit{address}. For some
+computers, such as embedded microcontrollers (as found in the ignition system of
+an automobile), an address is represented by an ordered list of eight bits,
+collectively referred to as a \textit{byte}. Using the rule of product, there
+are \(2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 = 2^8 =
+256\) such bytes. So we have 256 addresses that may be used for cells where
+certain information may be stored.
+
+A kitchen appliance, such as a microwave oven, incorporates a small computer
+whose main memory may contain hunderds of cells. Some older computers (such as
+the PDP 11 family) contained thousands of memory cells and used two-byte
+addresses to identify these cells in their main memory. Such addresses are made
+up of two consecutive bytes, or 16 consecutive bits. Thus there were \(256
+\times 256 = 2^8 \times 2^8 = 2^16 = 65,536\) available addresses that could be
+used to identify cells in th emain memory. Other computers using addressing
+systems of four bytes. This 32-bit architecture is used in the Pentium and SPARC
+processors, where there are many as \(2^8 \times 2^8 \times 2^8 \times 2^8 =
+2^{32} = 4,294,967,296\) addresses for use in identifying the cells in the main
+memory. When a programmer deals with the Alpha processor, he or she considers
+memory cells with eight-byte addresses. Each of these addresses comprises \(8
+\times 8 = 64\) bits, and there are \(2^{64} = 18,446,744,073,709,551,616\)
+possible addresses for this architecture. (Of course, not all of these
+possibilities are actually used.)
+\end{tcolorbox}
+
+\(\binom{3}{4}\)

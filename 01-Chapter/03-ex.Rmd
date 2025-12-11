@@ -1,0 +1,426 @@
+---
+title: Exercises 1.3
+output:
+  pdf_document:
+    includes:
+      in_headers: preamble.tex
+---
+
+```{r setup, include=F}
+knitr::opts_chunk$set(echo=F)
+pretty = function(x, n=0) format(round(x, n), big.mark=',')
+permutations <- function(n, r=NA){
+  factorial(n) / ifelse(is.na(r), 1, factorial(n - r))
+}
+```
+
+
+# 1.
+
+Calculate \(\binom{6}{2}\) and check your answer by listing all the selections
+of size 2 that can be made from the letters a, b, c, d, e, and f.
+
+\[
+\binom{6}{2} = `r choose(6, 2)`
+\]
+
+\[
+\begin{aligned}
+\text{ab},\ \text{ac},\ \text{ad},\ \text{ae},\ \text{af},\ \text{bc},\
+\text{bd},\ \text{be},\ \text{bf},\ \text{cd},\ \text{ce},\ \text{cf},\
+\text{de},\ \text{df},\ \text{ef}
+\end{aligned}
+\]
+
+# 2.
+
+Facing a four-hour bus trip back to college, Diane decides to take along five
+magazines from the 12 that her sister Ann Marie has recently acquired. In how
+many ways can Diane make her selection?
+
+\[
+\binom{12}{5} = `r choose(12, 5)`
+\]
+
+# 3.
+
+Evalueate each of the following:
+
+\[
+\begin{aligned}
+C(10, 4)  = `r choose(10, 4)`\\\\
+\binom{12}{7} = `r choose(12, 7)`\\\\
+C(14, 12) = `r choose(14, 12)`\\\\
+\binom{15}{10} = `r choose(15, 10)`
+\end{aligned}
+\]
+
+# 4.
+
+In the Braille system a symbol, such as a lowercase letter, punctuation mark,
+suffix, and so on, is given by raising a t least one of the dots in the six-dot
+arrangement.
+
+a. How many different symbols can we represent in the Braille system?
+
+b. How many symbols have exactly three raised dots?
+
+c. How many symbols have an even number of raised dots?
+
+## How many different symbols can we represent int he Braille system?
+
+Each dot can be raised or not raised, giving:
+
+\[
+2^6 = 64\ \text{total patterns}
+\]
+
+But one of these patterns is the unraised (blank) cell, which is _not_
+considered a symbol:
+
+\[
+64 - 1 = 63
+\]
+
+## How many symbols have exactly three raised dots?
+
+Choose 3 of the 6 dots:
+
+\[
+\binom{6}{3} = `r pretty(choose(6, 3))`
+\]
+
+## How many symbols have an even number of raised dots?
+
+Even possibilities: 2, 4, or 6 raised:
+
+\[
+\binom{6}{2} + \binom{6}{4} + \binom{6}{6} =
+`r pretty(choose(6, 2) + choose(6, 4) + choose(6, 6))`
+\]
+
+# 5.
+
+a. How many _permutations_ of size 3 can one produce with the letters m, r, a,
+f, and t?
+
+b. List all the _combinations_ of size 3 that result for the letters m, r, a, f,
+and t.
+
+## A. Permutations
+
+\[
+\frac{5!}{(5-3)!} = `r pretty(factorial(5) / factorial(5 - 3))`
+\]
+
+## B. Combinations
+
+\[
+\binom{5}{3} = `r pretty(choose(5, 3))`
+\]
+
+# 6.
+
+If \(n\) is a positive integer and \(n > 1\), prove that \(\binom{n}{2} +
+\binom{n-1}{2}\) is a perfect square.
+
+Compute directly using the binomial coefficient formula:
+
+\[
+\binom{n}{2} + \binom{n-1}{2} = \frac{n(n-1)}{2} + \frac{(n-1)(n-2)}{2}
+  = \frac{(n-1)(n + n - 2)}{2} = \frac{(n - 1)(2n - 2)}{2} = (n-1)^2
+\]
+
+Since \((n - 1)^2\) is a perfect square for every \(n > 1\), the sum is always a
+perfect square.
+
+Example: for \(n = 5, \binom{5}{2} + \binom{4}{2} = 10 + 6 = 16 = 4^2\)
+
+# 7.
+
+A committee of 12 is to be selected from 10 men and 10 women. In how many ways
+can the selection be carried out if (a) there are no restrictions? (b) there
+must be six men and six women? (c) there must be an even number of women? (d)
+there must be more women than men? (e) there must be at least eight men?
+
+## a. No restrictions
+
+If there are no restrictions than we can select any 12 from the 10 men or 10
+women.
+
+\[
+\binom{20}{12} = `r pretty(choose(20, 12))`
+\]
+
+## b. There must be 6 men and 6 women.
+
+\[
+\binom{10}{6} \times \binom{10}{6} = `r pretty(choose(10, 6) * choose(10, 6))`
+\]
+
+## c. There must be an even number of women.
+
+There must be either 2, 4, 6, 8 or 10 women.
+
+\[
+\begin{aligned}
+\binom{10}{2}  \binom{10}{10} + \binom{10}{4} \binom{10}{8} +
+\binom{10}{6}  \binom{10}{6}  + \binom{10}{8} \binom{10}{4} +
+\binom{10}{10} \binom{10}{2}\\
+  &= \sum^5_{i=1}{\binom{10}{12 - 2i} \binom{10}{2i}}\\
+  &= `r pretty(sum(choose(10, c(2,4,6,8,10)) * choose(10, c(10,8,6,4,2))))`
+\end{aligned}
+\]
+
+## d. There must be more women than men.
+
+If there are more women than men then there must be:
+\[
+\begin{aligned}
+2\ m\ &\ 10\  w\\
+3\ m\ &\ 9\ \ w\\
+4\ m\ &\ 8\ \ w\\
+5\ m\ &\ 7\ \ w
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+\sum^4_{i=1}{\binom{10}{1 + i} \binom{10}{11 - i}}\\
+ &= \binom{10}{2} \binom{10}{10} + \binom{10}{3} \binom{10}{9}
+ +  \binom{10}{4} \binom{10}{8}  + \binom{10}{5} \binom{10}{7}\\
+ &= `r pretty(sum(choose(10, c(2,3,4,5)) * choose(10, c(10,9,8,7))))`
+\end{aligned}
+\]
+
+## e. There must be at least eight men.
+
+If there must be at least eight men then there could be 8, 9, or 10 men.
+
+\[
+\begin{aligned}
+\sum^{10}_{i=8}{\binom{10}{i} \binom{10}{12 - i}}\\
+  &= \binom{10}{8} \binom{10}{4} + \binom{10}{9} \binom{10}{3}
+  +  \binom{10}{10} \binom{10}{2}\\
+  &= `r pretty(sum(choose(10, c(8,9,10)) * choose(10, c(4,3,2))))`
+\end{aligned}
+\]
+
+# 8.
+
+In how many ways can a gambler draw five cards from a standard deck and get (a)
+a flush (five cards of the same suit)? (b) four aces? (c) four of a kind? (d)
+three aces and two jacks? (e) three aces and a pair? (f) a full house (three of
+a kind and a pair)? (g) three of a kind? (h) two pairs?
+
+## a. A flush.
+
+Choose the suit 4 ways and choose 5 cards from 13.
+
+\[
+4 \times \binom{13}{5} = `r pretty(4 * choose(13, 5))`
+\]
+
+## b. Four Aces.
+
+You must have four aces and any one card.
+
+\[
+\binom{4}{4} \binom{48}{1} = `r pretty(choose(4, 4) * choose(48, 1))`
+\]
+
+## c. Four of a kind.
+
+Choose the rank for the four (13 ways), take all 4 suits, and choose from the
+remaining 48.
+
+\[
+13 \times 48 = `r pretty(13 * 48)`
+\]
+
+## d. Three aces and two jacks.
+
+Choose 3 of the 4 aces and 2 of the 4 jacks:
+
+\[
+\binom{4}{3} \binom{4}{2} = `r pretty(choose(4, 3) * choose(4, 2))`
+\]
+
+## e. Three aces and a pair.
+
+Choose 3 of the 4 aces and choose a pair from the remaining 12 ranks:
+
+\[
+\binom{4}{3} \times 12 \times \binom{4}{2} =
+  `r pretty(choose(4, 3) * 12 * choose(4, 2))`
+\]
+
+## f. A full house (three of a kind and a pair).
+
+Choose a triple from 13, and choose a pair from 12:
+
+\[
+13 \times \binom{4}{3} \times 12 \times \binom{4}{2}
+  = `r pretty(13 * choose(4, 3) * 12 * choose(4, 2))`
+\]
+
+## g. Three of a kind.
+
+Choose a triple from 13, and choose two any singletons from 12 from 1 of 4
+suits.
+
+\[
+13 \times \binom{4}{3} \times 4^2 \times \binom{12}{2}
+  = `r pretty(13 * choose(4, 3) * 4^2 * choose(12, 2))`
+\]
+
+
+## h. Two pairs.
+
+Choose 2 ranks for the pairs. For each choose rank choose 2 of 4 suits. Choose
+the fifth card's rank from the remaining 11 ranks and one of its 4 suits.
+
+\[
+\binom{13}{2} \times \binom{4}{2}^2 \times 11 \times 4
+  = `r pretty(choose(13, 2) * choose(4, 2)^2 * 11 * 4)`
+\]
+
+# 9.
+
+How many bytes contain (a) exactly two 1's; (b) exactly four 1's; (c) exactly
+six 1's; (d) at least six 1's?
+
+## a. exactly two 1's
+
+Choose 2 from 8
+
+\[
+\binom{8}{2} = `r pretty(choose(8, 2))`
+\]
+
+## b. exactly four 1's
+
+Choose 4 from 8
+
+\[
+\binom{8}{4} = `r pretty(choose(8, 4))`
+\]
+
+## c. Exactly six 1's
+
+Choose 6 from 8
+
+\[
+\binom{8}{6} = `r pretty(choose(8, 6))`
+\]
+
+## d. At least six 1's
+
+Choose 6, 7, and 8 from 8
+
+\[
+\binom{8}{6} + \binom{8}{7} + \binom{8}{8}
+  = `r pretty(choose(8, 6) + choose(8, 7) + choose(8, 8))`
+\]
+
+# 10.
+
+How many ways are there to pick a five-person basketball team from 12 possible
+players? How many selections include the weakest and the strongest players?
+
+
+There are choose 5 from 12 ways.
+
+\[
+\binom{12}{5} = `r pretty(choose(12, 5))`
+\]
+
+We need the weakest and the strongest already chosen. There are choose 3 from 10
+ways to choose the rest.
+
+\[
+\binom{10}{3} = `r pretty(choose(10, 3))`
+\]
+
+# 11.
+
+A student is to answer seven out of 10 questions on an examination. In how many
+ways can he make his selection if (a) there are no restrictions? (b) he must
+answer the first two questions? (c) he must answer at least four of the first
+six questions?
+
+Must answer seven out of 10 with...
+
+## a. No restrictions.
+
+With no restrictions, the student needs to choose 7 from 10.
+
+\[
+\binom{10}{7} = `r pretty(choose(10, 7))`
+\]
+
+## b. Must answer the first two questions.
+
+The first two must be chosen. Then the student can choose 5 from 8.
+
+\[
+\binom{8}{5} = `r pretty(choose(8, 5))`
+\]
+
+## c. Must answer at least four of the first six questions.
+
+The student must choose at least 4 from the first 6. This breaks down to three
+cases:
+
+### Case 1: 4 from first 6, 3 from last 4
+
+\[
+\binom{6}{4} \binom{4}{3} = `r pretty(choose(6,4)*choose(4,3))`
+\]
+
+### Case 2: 5 from first 6, 2 from last 4
+
+\[
+\binom{6}{5} \binom{4}{2} = `r pretty(choose(6,5)*choose(4,2))`
+\]
+
+### Case 3: 6 from first 6, 1 from last 4
+
+\[
+\binom{6}{6} \binom{4}{1} = `r pretty(choose(6,6)*choose(4,1))`
+\]
+
+### Combine the results
+
+\[
+\binom{6}{4} \binom{4}{3} + \binom{6}{5} \binom{4}{2}
+  + \binom{6}{6} \binom{4}{1}
+  = `r pretty(sum(choose(6, c(4,5,6)) * choose(4, c(3,2,1))))`
+\]
+
+# 12.
+
+In how many ways can 12 different books be distributed among four children so
+that (a) each child gets three books? (b) the two oldest children get four books
+each and the two youngest get two books each?
+
+## a. Each child gets three books
+
+Partition the 12 distinct books into four groups of size 3.
+
+\[
+\binom{12}{3} \binom{9}{3} \binom{6}{3} \binom{3}{3} 
+  = \frac{12!}{3! 3! 3! 3!} = `r pretty(factorial(12) / (factorial(3)^4))`
+\]
+
+## b. The two oldest children get four, two youngest get two.
+
+Choose 4 for the oldest, then 4 for the second-oldest from the remaining, then 2
+for the tird, last 2 go to the youngest.
+
+\[
+\binom{12}{4} \binom{8}{4} \binom{4}{2} \binom{2}{2}
+  = \frac{12!}{4! 4! 2! 2!}
+  = `r pretty(factorial(12) / (factorial(4)^2 * factorial(2)^2))`
+\]
+
