@@ -424,3 +424,28 @@ for the tird, last 2 go to the youngest.
   = `r pretty(factorial(12) / (factorial(4)^2 * factorial(2)^2))`
 \]
 
+# 13.
+
+How many arrangements of the letters in MISSISSIPPI have no consecutive S's?
+
+|M|I|I|I|P|P|I|
+
+There are eight places that we can place the four S.
+
+\[
+\left(\frac{7!}{4! 2!} \right) \binom{8}{4}
+  = `r pretty(factorial(7) / (factorial(4) * factorial(2)) * choose(8, 4))`
+\]
+
+# 14.
+
+A gym coach must select 11 seniors to play on a football team. If he can make
+his selection in 12,376 ways, how many seniors are eligible to play?
+
+\[
+\begin{aligned}
+\binom{N}{11} = \frac{N!}{11! (N - 11)!} = 12,376\\\\
+\frac{N \cdot (N - 1) \cdots (N - 10)}{11!} = 12,376\\\\
+\frac{N \cdots (N - 10)}{`r pretty(factorial(11))`} = 12,376\\
+\end{aligned}
+\]
